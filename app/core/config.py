@@ -8,11 +8,15 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "AI YouTube Script Generator"
     API_V1_STR: str = "/api/v1"
     
-    # The value from .env file will be a string. We need to parse it as a list.
     BACKEND_CORS_ORIGINS_STR: str = '[]'
 
-    # Add the YouTube API Key field
+    # YouTube Data API Key
     YOUTUBE_API_KEY: str = ""
+
+
+    # Google Generative AI API Key
+    GOOGLE_API_KEY: str = ""
+
 
     @property
     def BACKEND_CORS_ORIGINS(self) -> List[str]:

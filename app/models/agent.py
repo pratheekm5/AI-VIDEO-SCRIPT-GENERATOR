@@ -32,3 +32,20 @@ class TranscriptRequest(BaseModel):
 
 class TranscriptResponse(BaseModel):
     transcripts: List[str]
+
+    # app/models/agent.py
+
+# ... (keep all your existing models above this line) ...
+
+
+# --- Models for Portia Script Generation Endpoint ---
+
+class PortiaScriptRequest(BaseModel):
+    transcripts: List[str]
+    host_name: str
+    channel_name: str
+    signature_lines: List[str]
+    additional_instructions: str
+
+class PortiaScriptResponse(BaseModel):
+    script: str
