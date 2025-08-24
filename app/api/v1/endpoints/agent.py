@@ -1,10 +1,28 @@
-# app/api/v1/endpoints/agent.py
-
 from fastapi import APIRouter
-from app.models.agent import PortiaScriptRequest, PortiaScriptResponse
-from app.services import agent_service
+# 1. Import all necessary models and services
+from app.models.agent import (
+    PortiaScriptRequest, 
+    PortiaScriptResponse,
+    VideoSearchRequest,
+    VideoListResponse
+)
+from app.services import agent_service, youtube_service
 
 router = APIRouter()
+
+# 2. Restore the missing /fetch-videos endpoint
+@router.post("/fetch-videos", response_model=VideoListResponse)
+async def fetch_youtube_videos(request: VideoSearchRequest):
+    """
+    Accepts a topic and keywords, searches YouTube for relevant videos,
+    and returns a list of results.
+    """
+    videos_data = await youtube_service.get_youtube_videos(
+        topic=request.topic,
+        keywords=request.keywords
+    )
+    return {"videos": videos_data}
+
 
 @router.post("/create-script", response_model=PortiaScriptResponse)
 async def create_portia_script(request: PortiaScriptRequest):
