@@ -19,3 +19,16 @@ class FetchedVideo(BaseModel):
 #    This helps if you want to add more data to the response later.
 class VideoListResponse(BaseModel):
     videos: List[FetchedVideo]
+
+    # app/models/agent.py
+
+# ... (keep all your existing models above this line) ...
+
+
+# --- Models for Transcription Endpoint ---
+
+class TranscriptRequest(BaseModel):
+    video_urls: List[HttpUrl]
+
+class TranscriptResponse(BaseModel):
+    transcripts: List[str]
